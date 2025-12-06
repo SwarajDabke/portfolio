@@ -71,6 +71,168 @@
             padding: 0 20px;
         }
 
+        /* Particle Background - CONSTANT THROUGHOUT */
+        /* Particle Background - STRONGER & ANIMATED */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.30), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(124, 58, 237, 0.30), transparent 55%),
+        var(--body-bg);
+    background-size: 140% 140%;
+    animation: bgPulse 14s ease-in-out infinite alternate;
+}
+
+/* Dark mode version */
+body[data-theme="dark"] #particles-js {
+    background:
+        radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.40), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.35), transparent 55%),
+        var(--body-bg);
+}
+
+        /* Sections with content overlay */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 0;
+        }
+
+        /* Hero Section - Keep gradient over particles */
+        .hero {
+            padding-top: 100px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(2, 6, 23, 0.95) 100%);
+            z-index: -1;
+        }
+
+        body[data-theme="dark"] .hero::before {
+            background: linear-gradient(135deg, rgba(31, 41, 51, 0.9) 0%, rgba(2, 6, 23, 0.95) 100%);
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            flex: 1;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: var(--body-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        .loader::before {
+            border-top-color: var(--secondary);
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            animation: spin 2s linear infinite;
+        }
+
+        .loader::after {
+            border-top-color: #10b981;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            animation: spin 3s linear infinite;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            border: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+        }
+
         /* Header & Navigation */
         header {
             background-color: var(--nav-bg);
@@ -196,63 +358,31 @@
             background: rgba(148, 163, 184, 0.1);
         }
 
-        /* Hero Section */
-        .hero {
-            padding-top: 80px;                    /* space for fixed header (menu not hiding text) */
-            height: auto;                         /* let content decide height */
-            min-height: 100vh;                    /* still at least full screen */
+        /* Resume Download Button */
+        .resume-download {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #1e293b 0%, #020617 100%);
-            position: relative;
-            overflow: hidden;
+            gap: 8px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
-        .hero-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+        .resume-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+            gap: 12px;
         }
 
-        .hero-content {
-            max-width: 600px;
-            flex: 1;
-        }
-
-        body[data-theme="dark"] .hero {
-            background: radial-gradient(circle at top left, #1f2933 0%, #020617 70%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.45), transparent 70%);
-            top: -120px;
-            left: -120px;
-            filter: blur(4px);
-            opacity: 0.75;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 650px;
-            height: 650px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 70%);
-            bottom: -220px;
-            right: -180px;
-            filter: blur(6px);
-            opacity: 0.85;
-        }
-
+        /* Hero Section Content */
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 15px;
@@ -269,6 +399,14 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 1s forwards 0.6s;
+        }
+
+        .hero .highlight {
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero .description {
@@ -289,7 +427,10 @@
         }
 
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             padding: 12px 30px;
             border-radius: 999px;
             text-decoration: none;
@@ -300,6 +441,15 @@
             overflow: hidden;
             letter-spacing: 0.03em;
             font-size: 0.95rem;
+            border: none;
+        }
+
+        .btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(4px);
         }
 
         .btn-primary {
@@ -329,21 +479,29 @@
         }
 
         /* Button wave highlight */
-        .btn::after {
-            content: "";
-            position: absolute;
-            width: 140%;
-            height: 140%;
-            top: -20%;
-            left: -140%;
-            background: linear-gradient(120deg, rgba(255,255,255,0.5), transparent);
-            transform: skewX(-20deg);
-            transition: 0.6s;
-        }
+        /* Replace your existing .btn::after and .btn:hover::after with this */
 
-        .btn:hover::after {
-            left: 140%;
-        }
+.btn::after {
+    content: "";
+    position: absolute;
+    width: 60%; /* narrower streak */
+    height: 220%; /* tall streak, but not covering all width */
+    top: -60%;
+    left: -80%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.18),
+        transparent 60%
+    );
+    transform: skewX(-20deg);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+}
+
+.btn:hover::after {
+    transform: translateX(260%) skewX(-20deg);
+}
+
 
         .btn:active {
             transform: scale(0.96) translateY(1px);
@@ -478,11 +636,16 @@
             border: 1px solid rgba(148, 163, 184, 0.45);
             backdrop-filter: blur(6px);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
         .info-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-item:hover .info-number {
+            color: var(--primary);
         }
 
         body[data-theme="dark"] .info-item {
@@ -494,6 +657,7 @@
             font-size: 1.7rem;
             font-weight: 700;
             color: #bfdbfe;
+            transition: color 0.3s ease;
         }
 
         .info-label {
@@ -501,11 +665,7 @@
             color: #e2e8f0;
         }
 
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-
+        /* Section Titles */
         .section-title {
             text-align: center;
             margin-bottom: 60px;
@@ -626,13 +786,87 @@
             mask-composite: exclude;
         }
 
+        /* Services Section */
+        .services {
+            background-color: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        body[data-theme="dark"] .services {
+            background-color: rgba(5, 5, 9, 0.7);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid var(--card-border);
+            text-align: center;
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+            border-color: rgba(37, 99, 235, 0.5);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        body[data-theme="dark"] .service-card h3 {
+            color: #f9fafb;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
         /* Experience Section */
         .experience {
-            background-color: #f8fafc;
+            background-color: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
         }
 
         body[data-theme="dark"] .experience {
-            background-color: #050509;
+            background-color: rgba(5, 5, 9, 0.7);
         }
 
         .timeline {
@@ -759,7 +993,12 @@
 
         /* Skills Section */
         .skills {
-            background: var(--body-bg);
+            background: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        body[data-theme="dark"] .skills {
+            background: rgba(5, 5, 9, 0.7);
         }
 
         .skills-container {
@@ -871,11 +1110,12 @@
 
         /* Projects Section */
         .projects {
-            background-color: #f8fafc;
+            background-color: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
         }
 
         body[data-theme="dark"] .projects {
-            background-color: #050509;
+            background-color: rgba(5, 5, 9, 0.7);
         }
 
         .projects-grid {
@@ -958,6 +1198,32 @@
             line-height: 1.5;
         }
 
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .project-tag {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-tag {
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
         .project-link {
             display: inline-flex;
             align-items: center;
@@ -1010,6 +1276,15 @@
         }
 
         /* Education Section */
+        .education {
+            background-color: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        body[data-theme="dark"] .education {
+            background-color: rgba(5, 5, 9, 0.7);
+        }
+
         .education-timeline {
             max-width: 800px;
             margin: 0 auto;
@@ -1076,9 +1351,76 @@
             font-weight: 500;
         }
 
+        /* Certifications Section */
+        .certifications {
+            background-color: rgba(248, 250, 252, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        body[data-theme="dark"] .certifications {
+            background-color: rgba(5, 5, 9, 0.7);
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--primary);
+        }
+
+        .cert-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.18);
+        }
+
+        .cert-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        body[data-theme="dark"] .cert-card h3 {
+            color: #f9fafb;
+        }
+
+        .cert-card h3 i {
+            color: var(--primary);
+        }
+
+        .cert-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .cert-date {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
         /* Contact Section */
         .contact {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(124, 58, 237, 0.9) 100%);
             color: white;
             text-align: center;
             position: relative;
@@ -1220,10 +1562,13 @@
 
         /* Footer */
         footer {
-            background-color: #020617;
+            background-color: rgba(2, 6, 23, 0.9);
             color: white;
             text-align: center;
             padding: 30px 0;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
         }
 
         .footer-content {
@@ -1353,6 +1698,125 @@
             100% {
                 transform: translateX(100%);
             }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Modal for Resume Download */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--card-border);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        body[data-theme="dark"] .modal-header h3 {
+            color: #f9fafb;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-content {
+            color: var(--text-soft);
+            margin-bottom: 25px;
+        }
+
+        .download-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .download-btn.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .download-btn.secondary:hover {
+            background: rgba(37, 99, 235, 0.1);
         }
 
         /* =============== RESPONSIVE DESIGN =============== */
@@ -1534,6 +1998,11 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            .resume-download {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
         }
 
         /* For small mobile phones (below 576px) */
@@ -1656,6 +2125,14 @@
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Particle Background - NOW CONSTANT THROUGHOUT -->
+    <div id="particles-js"></div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -1667,12 +2144,17 @@
                     <ul class="nav-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
                         <li><a href="#experience">Experience</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#education">Education</a></li>
+                        <li><a href="#certifications">Certifications</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    <button class="resume-download" id="resumeBtn">
+                        <i class="fas fa-download"></i> Resume
+                    </button>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <i class="fas fa-moon"></i>
                     </button>
@@ -1690,12 +2172,12 @@
             <div class="hero-container">
                 <div class="hero-content">
                     <h1>Swaraj Sameer Dabke</h1>
-                    <div class="tagline">Full-Stack Developer</div>
-                    <p class="description">Building digital experiences with React, Next.js & Django. Passionate about creating scalable web applications with excellent user experiences.</p>
+                    <div class="tagline">Full-Stack Developer <span class="highlight"> & Salesforce Specialist</span></div>
+                    <p class="description">Specializing in React, Next.js & Django for scalable web applications. Passionate about creating seamless digital experiences with excellent performance and user experience. Currently building innovative solutions at Isyera Digital.</p>
                     
                     <div class="hero-btns">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#projects" class="btn btn-outline">View Projects</a>
+                        <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+                        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View Projects</a>
                     </div>
                     
                     <div class="quick-info">
@@ -1738,15 +2220,54 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Passionate Full-Stack Developer and Salesforce Admin with hands-on experience in building responsive user interfaces, optimizing CRM systems, and automating workflows.</p>
-                    <p>Proficient in HTML, CSS, JavaScript, React, Next.js, and modern frontend frameworks. Experienced in backend development with Django and database management. Adept at delivering scalable solutions that enhance user experience and business operations.</p>
-                    <p>Currently working as a Full-Stack Developer at Isyra Digital, where I'm contributing to a client-based calibration system project using React, Next.js, and Django.</p>
+                    <p>Passionate Full-Stack Developer with expertise in modern web technologies and Salesforce administration. I focus on creating responsive, scalable applications that solve real-world problems and deliver exceptional user experiences.</p>
+                    <p>My core strength lies in full-stack web development with React, Next.js, Django, and Python. Additionally, I have Salesforce administration skills for CRM optimization and business process automation.</p>
+                    <p>Currently working as a Full-Stack Developer at Isyera Digital on a client-based calibration system project. I believe in clean code, best practices, and continuous learning to stay at the forefront of technology.</p>
                 </div>
                 <div class="about-photo">
                     <div class="about-photo-container">
                         <img src="Full-Stack-3.gif" alt="Swaraj Sameer Dabke - Professional Photo">
                         <div class="about-photo-frame"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Full-Stack Web Development</h3>
+                    <p>End-to-end web application development using React, Next.js, Django, and modern frameworks for scalable, high-performance solutions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Backend & API Development</h3>
+                    <p>Robust server-side applications, RESTful APIs, and database design with Django, Python, and PostgreSQL.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Salesforce Solutions</h3>
+                    <p>CRM customization, workflow automation, and custom application development on the Salesforce platform.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Web Design</h3>
+                    <p>Mobile-first, responsive websites with modern design principles, accessibility standards, and optimal performance.</p>
                 </div>
             </div>
         </div>
@@ -1762,11 +2283,12 @@
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <div class="timeline-date">May 2025 - Present</div>
-                        <div class="timeline-company">Full-Stack Developer - Isyra Digital, Pune</div>
+                        <div class="timeline-company">Full-Stack Developer - Isyera Digital, Pune</div>
                         <div class="timeline-desc">
-                            <p>Working on a client-based calibration system project using React, Next.js, and Django.</p>
-                            <p>Developing responsive user interfaces and implementing backend APIs for system functionality.</p>
+                            <p>Developing a client-based calibration system using React, Next.js, and Django.</p>
+                            <p>Building responsive user interfaces and implementing backend APIs for system functionality.</p>
                             <p>Collaborating with cross-functional teams to deliver high-quality software solutions.</p>
+                            <p>Implementing CI/CD pipelines and optimizing application performance.</p>
                         </div>
                     </div>
                 </div>
@@ -1793,8 +2315,9 @@
                 <h2>Skills</h2>
             </div>
             <div class="skills-container">
+                <!-- Full-Stack Development Category (Main Focus) -->
                 <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Frontend</h3>
+                    <h3><i class="fas fa-code"></i> Frontend Development</h3>
                     <ul class="skill-list">
                         <li>
                             <span class="skill-name">HTML5 & CSS3</span>
@@ -1818,8 +2341,9 @@
                         </li>
                     </ul>
                 </div>
+                
                 <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <h3><i class="fas fa-server"></i> Backend Development</h3>
                     <ul class="skill-list">
                         <li>
                             <span class="skill-name">Django</span>
@@ -1830,46 +2354,53 @@
                             <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
                         </li>
                         <li>
-                            <span class="skill-name">Java</span>
+                            <span class="skill-name">RESTful APIs</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                        </li>
+                        <li>
+                            <span class="skill-name">Authentication & Security</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> Database & Tools</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <span class="skill-name">SQL & MySQL</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                        </li>
+                        <li>
+                            <span class="skill-name">PostgreSQL</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                        </li>
+                        <li>
+                            <span class="skill-name">Git & GitHub</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                        </li>
+                        <li>
+                            <span class="skill-name">Docker Basics</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Additional Skills (Java & Salesforce) -->
+                <div class="skill-category">
+                    <h3><i class="fas fa-cogs"></i> Additional Skills</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <span class="skill-name">Java Programming</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
                         </li>
                         <li>
                             <span class="skill-name">C++</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
                         </li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Database</h3>
-                    <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">SQL</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">MySQL</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">DBMS</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-cloud"></i> Salesforce</h3>
-                    <ul class="skill-list">
                         <li>
                             <span class="skill-name">Salesforce Administration</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Workflow Automation</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Custom App Development</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
                         </li>
                         <li>
                             <span class="skill-name">Apex Programming</span>
@@ -1877,13 +2408,10 @@
                         </li>
                     </ul>
                 </div>
+                
                 <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Tools & Methods</h3>
+                    <h3><i class="fas fa-tools"></i> Development Methods</h3>
                     <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">Git</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                        </li>
                         <li>
                             <span class="skill-name">Agile Methodologies</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
@@ -1892,26 +2420,13 @@
                             <span class="skill-name">SDLC</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
                         </li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-users"></i> Soft Skills</h3>
-                    <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">Strong Communication</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Team Collaboration</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                        </li>
                         <li>
                             <span class="skill-name">Problem Solving</span>
                             <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
                         </li>
                         <li>
-                            <span class="skill-name">Adaptability</span>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 100%"></div></div>
+                            <span class="skill-name">Team Collaboration</span>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
                         </li>
                     </ul>
                 </div>
@@ -1937,7 +2452,14 @@
                     <div class="project-content">
                         <h3 class="project-title">Hotel Management System</h3>
                         <p class="project-desc">Developed a fully integrated Hotel Management System in Salesforce to optimize hotel operations and enhance customer management. Features include room booking, billing, customer management, and reporting.</p>
-                        <a href="https://www.linkedin.com/in/swaraj-dabke-bb98a4250/details/projects/" class="project-link" target="_blank" rel="noopener noreferrer">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-tags">
+                            <span class="project-tag">Salesforce</span>
+                            <span class="project-tag">Apex</span>
+                            <span class="project-tag">CRM</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.linkedin.com/in/swaraj-dabke-bb98a4250/details/projects/" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> View Project</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -1952,7 +2474,14 @@
                     <div class="project-content">
                         <h3 class="project-title">ATM Simulator Interface</h3>
                         <p class="project-desc">Developed an ATM simulator using Java's AWT for the GUI and MySQL for database connectivity. Simulates essential banking operations including balance inquiry, cash withdrawal, deposits, and fund transfers.</p>
-                        <a href="https://github.com/SwarajDabke/Atm-Software" class="project-link" target="_blank" rel="noopener noreferrer">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-tags">
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">AWT</span>
+                            <span class="project-tag">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/SwarajDabke/Atm-Software" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Source Code</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -1967,7 +2496,14 @@
                     <div class="project-content">
                         <h3 class="project-title">Task Manager Web App</h3>
                         <p class="project-desc">Designed and developed a web-based task management system using HTML, CSS, and JavaScript with role-based access control. Features include task creation, assignment, priority setting, and progress tracking.</p>
-                        <a href="https://github.com/SwarajDabke/Task_Managment" class="project-link" target="_blank" rel="noopener noreferrer">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Web App</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/SwarajDabke/Task_Managment" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Source Code</a>
+                        </div>
                     </div>
                 </div>
                 
@@ -1980,14 +2516,17 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Calibration System</h3>
-                        <p class="project-desc">Currently working on a client-based calibration system project using React, Next.js, and Django at Isyera Digital. The system manages calibration equipment, schedules, and certification processes.</p>
-                        <p class="project-desc" style="color: var(--primary); font-weight: 500;">Client Project - Confidential</p>
+                        <h3 class="project-title">Calibration System (Full-Stack)</h3>
+                        <p class="project-desc">Currently developing a client-based calibration system using React, Next.js, and Django. The system manages calibration equipment, schedules, and certification processes with real-time tracking.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Next.js</span>
+                            <span class="project-tag">Django</span>
+                            <span class="project-tag">Full-Stack</span>
+                        </div>
+                        <p class="project-desc" style="color: var(--primary); font-weight: 500; margin-top: 10px;"><i class="fas fa-lock"></i> Client Project - Confidential</p>
                     </div>
                 </div>
-                
-                <!-- E-commerce Dashboard -->
-                
             </div>
         </div>
     </section>
@@ -2035,6 +2574,37 @@
         </div>
     </section>
 
+    <!-- Certifications Section - Updated with only Java and Salesforce -->
+    <section class="certifications" id="certifications">
+        <div class="container">
+            <div class="section-title">
+                <h2>Certifications</h2>
+            </div>
+            <div class="certifications-grid">
+                <div class="cert-card">
+                    <h3><i class="fas fa-certificate"></i> Java Programming</h3>
+                    <p>Comprehensive Java programming certification covering core concepts, OOP principles, and application development.</p>
+                    <div class="cert-date">Issued: 2023</div>
+                </div>
+                <div class="cert-card">
+                    <h3><i class="fas fa-certificate"></i> Salesforce Administrator</h3>
+                    <p>Professional certification in Salesforce Administration including user management, security, data management, and workflow automation.</p>
+                    <div class="cert-date">Issued: 2024</div>
+                </div>
+                <div class="cert-card">
+                    <h3><i class="fas fa-certificate"></i> Salesforce Development</h3>
+                    <p>Development certification covering Apex programming, Visualforce, Lightning Components, and custom application development on Salesforce platform.</p>
+                    <div class="cert-date">Issued: 2024</div>
+                </div>
+                <div class="cert-card">
+                    <h3><i class="fas fa-certificate"></i> Full-Stack Web Development</h3>
+                    <p>Comprehensive certification covering modern web development technologies including React, Django, and database management.</p>
+                    <div class="cert-date">Issued: 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
@@ -2061,7 +2631,7 @@
                     <a href="https://www.linkedin.com/in/swaraj-dabke-bb98a4250/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://github.com/SwarajDabke" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
                     <a href="mailto:dabkeswaraj50@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=919307221504" class="social-link"><i class="fas fa-phone"></i></a>
+                    <a href="tel:+919307221504" class="social-link"><i class="fas fa-phone"></i></a>
                 </div>
             </div>
         </div>
@@ -2075,10 +2645,12 @@
                 <ul class="footer-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#education">Eduction</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <p class="copyright">© 2025 Swaraj Sameer Dabke. All Rights Reserved.</p>
@@ -2086,8 +2658,48 @@
         </div>
     </footer>
 
+    <!-- Resume Download Modal -->
+    <div class="modal-overlay" id="resumeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Download Resume</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <p>Choose your preferred format to download my resume. The PDF version is recommended for printing and formal submissions.</p>
+            </div>
+            <div class="download-options">
+                <button class="download-btn" id="downloadPDF">
+                    <i class="fas fa-file-pdf"></i> Download PDF Resume
+                </button>
+                <button class="download-btn secondary" id="downloadDOC">
+                    <i class="fas fa-file-word"></i> Download DOC Resume
+                </button>
+                <button class="download-btn secondary" id="viewOnline">
+                    <i class="fas fa-eye"></i> View Online Version
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <script>
-        // Initial theme (default light, manual only)
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Theme Toggle
         (function () {
             const saved = localStorage.getItem('theme');
             if (saved === 'dark') {
@@ -2112,15 +2724,109 @@
             document.body.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
             updateThemeIcon();
+            
+            // Update particle colors based on theme
+            updateParticleColors(next === 'dark');
         });
+
+        // Resume Modal
+        const resumeBtn = document.getElementById('resumeBtn');
+        const resumeModal = document.getElementById('resumeModal');
+        const closeModal = document.getElementById('closeModal');
+
+        resumeBtn.addEventListener('click', () => {
+            resumeModal.classList.add('active');
+        });
+
+        closeModal.addEventListener('click', () => {
+            resumeModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        resumeModal.addEventListener('click', (e) => {
+            if (e.target === resumeModal) {
+                resumeModal.classList.remove('active');
+            }
+        });
+
+        // Resume Download Functions
+        document.getElementById('downloadPDF').addEventListener('click', () => {
+            // Create a sample resume PDF download
+            const link = document.createElement('a');
+            link.href = 'data:application/pdf;base64,'; // Replace with actual PDF base64 or URL
+            link.download = 'Swaraj_Dabke_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            resumeModal.classList.remove('active');
+            
+            // Show success message
+            showNotification('Resume PDF download started!');
+        });
+
+        document.getElementById('downloadDOC').addEventListener('click', () => {
+            // Create a sample resume DOC download
+            const link = document.createElement('a');
+            link.href = 'data:application/msword;base64,'; // Replace with actual DOC base64 or URL
+            link.download = 'Swaraj_Dabke_Resume.doc';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            resumeModal.classList.remove('active');
+            
+            // Show success message
+            showNotification('Resume DOC download started!');
+        });
+
+        document.getElementById('viewOnline').addEventListener('click', () => {
+            // Open resume in new tab
+            window.open('https://docs.google.com/document/d/your-resume-link', '_blank');
+            resumeModal.classList.remove('active');
+        });
+
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--primary);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
 
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
+            const backToTop = document.getElementById('backToTop');
+            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
             }
         });
 
@@ -2130,7 +2836,6 @@
         
         mobileMenu.addEventListener('click', function() {
             navLinks.classList.toggle('active');
-            // Change icon
             const icon = mobileMenu.querySelector('i');
             if (navLinks.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
@@ -2151,6 +2856,14 @@
             });
         });
 
+        // Back to top functionality
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
@@ -2166,7 +2879,7 @@
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.about-photo, .timeline-item, .skill-category, .project-card, .education-item')
+        document.querySelectorAll('.about-photo, .timeline-item, .skill-category, .project-card, .education-item, .service-card, .cert-card')
             .forEach(el => observer.observe(el));
 
         // Skill bar animation
@@ -2186,17 +2899,6 @@
 
         skillBars.forEach(bar => {
             skillObserver.observe(bar);
-        });
-
-        // Add smooth hover effects for info items
-        const infoItems = document.querySelectorAll('.info-item');
-        infoItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.style.transform = 'translateY(-5px)';
-            });
-            item.addEventListener('mouseleave', () => {
-                item.style.transform = 'translateY(0)';
-            });
         });
 
         // Animate section titles on scroll
@@ -2233,6 +2935,174 @@
                 }
             });
         });
+
+        // Info items click effect
+        const infoItems = document.querySelectorAll('.info-item');
+        infoItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Function to update particle colors based on theme
+        function updateParticleColors(isDark) {
+            const primaryColor = isDark ? '#8b5cf6' : '#2563eb';
+            const secondaryColor = isDark ? '#38bdf8' : '#7c3aed';
+            
+            if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                window.pJSDom[0].pJS.particles.color.value = primaryColor;
+                window.pJSDom[0].pJS.particles.line_linked.color = secondaryColor;
+                window.pJSDom[0].pJS.fn.particlesRefresh();
+            }
+        }
+
+        // Initialize Particles.js with CONSTANT background
+       particlesJS("particles-js", {
+    particles: {
+        number: { 
+            value: 110,                // Increased particles (was 60)
+            density: { 
+                enable: true, 
+                value_area: 800 
+            } 
+        },
+        color: { 
+            value: "#2563eb"           // Primary color
+        },
+        shape: { 
+            type: "circle" 
+        },
+        opacity: { 
+            value: 0.5,                // More visible (was 0.3)
+            random: true 
+        },
+        size: { 
+            value: 3,                  // Slightly larger (was 2)
+            random: true,
+            anim: {
+                enable: true,
+                speed: 3,              // Faster animation (was 2)
+                size_min: 0.3,
+                sync: false
+            }
+        },
+        line_linked: {
+            enable: true,
+            distance: 130,
+            color: "#7c3aed",          // Secondary color
+            opacity: 0.35,             // More brightness (was 0.15)
+            width: 1.3
+        },
+        move: {
+            enable: true,
+            speed: 2.4,                // Faster movement (was 1.5)
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+                enable: false,
+                rotateX: 600,
+                rotateY: 1200
+            }
+        }
+    },
+
+    interactivity: {
+        detect_on: "canvas",
+        events: {
+            onhover: { 
+                enable: true, 
+                mode: "repulse"        // Stronger response on hover
+            },
+            onclick: { 
+                enable: true, 
+                mode: "push" 
+            },
+            resize: true
+        },
+        modes: {
+            grab: {
+                distance: 220,         // More reactive grab
+                line_linked: {
+                    opacity: 0.6
+                }
+            },
+            bubble: {
+                distance: 300,
+                size: 6,
+                duration: 2,
+                opacity: 0.8,
+                speed: 3
+            },
+            repulse: {
+                distance: 150,         // Stronger push effect (was 100)
+                duration: 0.5
+            },
+            push: {
+                particles_nb: 6        // Add more particles on click
+            },
+            remove: {
+                particles_nb: 2
+            }
+        }
+    },
+
+    retina_detect: true
+});
+
+
+        // Update particle colors on initial load based on theme
+        setTimeout(() => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            updateParticleColors(isDark);
+        }, 1000);
+
+        // Add CSS for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+                @keyframes bgPulse {
+    0% {
+        background-position: 0% 0%, 100% 100%, 50% 50%;
+        filter: saturate(1) brightness(1);
+    }
+    50% {
+        background-position: 10% 20%, 90% 80%, 50% 50%;
+        filter: saturate(1.2) brightness(1.05);
+    }
+    100% {
+        background-position: 20% 40%, 80% 60%, 50% 50%;
+        filter: saturate(1.4) brightness(1.1);
+    }
+}
+
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
