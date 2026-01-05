@@ -2863,33 +2863,51 @@
         });
 
         // Resume Download Functions
-        document.getElementById('downloadPDF').addEventListener('click', () => {
-            // Create a sample resume PDF download
-            const link = document.createElement('a');
-            link.href = 'data:application/pdf;base64,'; // Replace with actual PDF base64 or URL
-            link.download = 'Swaraj_Dabke_Resume.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            resumeModal.classList.remove('active');
+        // Resume Download Functions
+// Resume Download Functions
+document.getElementById('downloadPDF').addEventListener('click', () => {
+    try {
+        const link = document.createElement('a');
+        link.href = 'Swaraj_Dabke_Resume.pdf'; // Direct link to your PDF file
+        link.download = 'Swaraj_Dabke_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success message
+        showNotification('Resume PDF download started!');
+    } catch (error) {
+        showNotification('Error downloading PDF. Please try again.');
+        console.error('PDF download error:', error);
+    }
+    resumeModal.classList.remove('active');
+});
 
-            // Show success message
-            showNotification('Resume PDF download started!');
-        });
-
-        document.getElementById('downloadDOC').addEventListener('click', () => {
-            // Create a sample resume DOC download
-            const link = document.createElement('a');
-            link.href = 'data:application/msword;base64,'; // Replace with actual DOC base64 or URL
-            link.download = 'Swaraj_Dabke_Resume.doc';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            resumeModal.classList.remove('active');
-
-            // Show success message
-            showNotification('Resume DOC download started!');
-        });
+document.getElementById('downloadDOC').addEventListener('click', () => {
+    try {
+        const link = document.createElement('a');
+        // Try multiple possible file extensions
+        const docFiles = [
+            'Swaraj_Dabke_Resume.doc',
+            'Swaraj_Dabke_Resume.docx',
+            'Swaraj_Dabke_Resume.docm'
+        ];
+        
+        // Create the link and try to download
+        link.href = docFiles[0]; // Use the first file name
+        link.download = 'Swaraj_Dabke_Resume.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success message
+        showNotification('Resume DOC download started!');
+    } catch (error) {
+        showNotification('Error downloading DOC file. Please try the PDF version.');
+        console.error('DOC download error:', error);
+    }
+    resumeModal.classList.remove('active');
+});
 
         document.getElementById('viewOnline').addEventListener('click', () => {
             // Open resume in new tab
